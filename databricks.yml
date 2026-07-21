@@ -1,0 +1,25 @@
+bundle:
+  name: pulsestream
+
+resources:
+  pipelines:
+    pulsestream_pipeline:
+      name: pulsestream_pipeline
+      catalog: pulsestream
+      schema: bronze
+      serverless: true
+      continuous: false
+      root_path: ./
+      libraries:
+        - file:
+            path: ./src/pipeline/bronze.py
+        - file:
+            path: ./src/pipeline/silver.py
+        - file:
+            path: ./src/pipeline/gold.py
+
+targets:
+  dev:
+    default: true
+    workspace:
+      host: https://dbc-c2d29f36-1f1c.cloud.databricks.com/
